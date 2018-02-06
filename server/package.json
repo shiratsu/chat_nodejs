@@ -1,0 +1,14 @@
+{
+  "name": "chatserver",
+  "version": "1.0.0",
+  "description": "chatserverのお試し",
+  "main": "chat_server.js",
+  "scripts": {
+    "test": "node chat_server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "websocket.io": "^0.2.1"
+  }
+}

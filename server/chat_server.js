@@ -2,17 +2,27 @@
 // 8888番ポートでクライアントの接続を待ち受ける
 var ws = require('websocket.io');
 var server = ws.listen(8888, function () {
-  console.log('\033[96m Server running at 172.16.145.136:8888 \033[39m');
+  console.log('\033[96m Server running at localhost:8888 \033[39m');
 });
  
 // クライアントからの接続イベントを処理
 server.on('connection', function(socket) {
   // クライアントからのメッセージ受信イベントを処理
   socket.on('message', function(data) {
+    console.log('\033[96m' + data + '\033[39m');
     // 実行時間を追加
     var data = JSON.parse(data);
-    var d = new Date();
-    data.time = d.getFullYear()  + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+    // typeで返し方を分ける  
+    if(data.type != 'typing' && data.type != 'done_typing'){
+        var d = new Date();
+        data.time = d.getFullYear()  + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    }else{
+        if(data.type == 'typing'){
+            data.msg = data.user+' is typing...';
+        }    
+    }    
+      
     data = JSON.stringify(data);
     console.log('\033[96m' + data + '\033[39m');
     
@@ -21,4 +31,7 @@ server.on('connection', function(socket) {
       client.send(data);
     });
   });
+  socket.onerror = function (event) {
+    console.log(event);
+  };  
 });

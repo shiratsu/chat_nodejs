@@ -1,8 +1,14 @@
 // WebSocketサーバに接続
-var ws = new WebSocket('ws://localhost:8888/');
+//var ws = new WebSocket('ws://10.0.2.253:8888/');
+//var ws = new WebSocket('ws://localhost:8080/');
+//var ws = new WebSocket('ws://localhost:8888/');
+//var ws = new WebSocket('ws://localhost:3000/');
+//var ws = new WebSocket('ws://13.231.9.112:8888/');
+var ws = new WebSocket('ws://13.231.9.112:3000/');
  
 // エラー処理
 ws.onerror = function(e){
+  console.log(e.type);
   $('#chat-area').empty()
     .addClass('alert alert-error')
     .append('<button type="button" class="close" data-dismiss="alert">×</button>',
